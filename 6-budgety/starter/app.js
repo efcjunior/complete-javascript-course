@@ -1,6 +1,6 @@
 /*Module pattern implementation structure */
 
-var controllerXyz01 = (function(){
+var budgetController = (function(){
 
     //data encapsulation
 
@@ -12,24 +12,49 @@ var controllerXyz01 = (function(){
 })();
 
 
-var controllerXyzn = (function(){
+var UIController = (function(){
     //data encapsulation
-
+    //DOMStrings
+    var DOMstrings = {
+        inputType: '.add__type',
+        inputDescription: '.add__description',
+        inputValue: '.add__value',
+        inputBtn: '.add__btn'
+    };
 
     return {
         //interface
+        getInput: function() {
+            //get all data input and return an object
+            return {
+                inputType: document.querySelector(DOMstrings.inputType).value,
+                inputDescription: document.querySelector(DOMstrings.inputDescription).value,
+                inputValue: document.querySelector(DOMstrings.inputValue).value
+            };
+        },
+        //DOMStrings
+        getDOMstrings: function() {
+            return DOMstrings;
+        }
     }
 
 })();
 
 
 //Global app controller 
-var controller = (function(ctrl01, ctrln){
+var controller = (function(budgetCtrl, UICtrl){
 
-    //event listerners
+    var DOM = UICtrl.getDOMstrings();
 
-    return {
+    /**event listeners and callbacks */
+    var ctrlAddItem = function(){
+        console.log(UICtrl.getInput());
+    };
 
-    }
-
-})(controllerXyz01,controllerXyzn);
+    document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+    document.addEventListener('keypress', function(event){    
+        if(event.keyCode === 13 || event.which === 13){
+            ctrlAddItem();
+        }
+    });
+})(budgetController,UIController);
