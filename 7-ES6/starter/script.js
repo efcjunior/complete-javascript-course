@@ -147,7 +147,7 @@ ages6 = years.map((el, index) => {
 });
 console.log(ages6);
 
-//----------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------
 
 // Lecture: Arrow functions Lexical 'this' keyword
 
@@ -251,3 +251,87 @@ Person6.prototype.myFriends6 = function(friends) {
 var friends6 = ['Bob6', 'Jane6', 'Mark6'];
 
 new Person6('John').myFriends6(friends6);
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+// Lecture: Destructuring
+
+//ES5
+var john = ['john', 26];
+var name5 = john[0];
+var age5 = john[1];
+
+//ES6
+const[name, year] = ['john', 26];
+console.log(name5);
+console.log(age5);
+
+const obj = {
+    firstName6: 'John',
+    lastName6: 'Smith'
+};
+
+const {firstName6, lastName6} = obj;
+console.log(firstName6);
+console.log(lastName6);
+
+const {firstName6: a, lastName6: b} = obj;
+console.log(a);
+console.log(b);
+
+function calcAgeRetirement(year) {
+    const age = new Date().getFullYear() - year;
+    return [age, 65 - age];
+}
+
+const [ageCurrent, retirement] = calcAgeRetirement(1990);
+console.log(ageCurrent);
+console.log(retirement);
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+// Lecture: Arrays
+
+const boxes = document.querySelectorAll('.box');
+
+//ES5
+var boxesArr5 = Array.prototype.slice.call(boxes);
+boxesArr5.forEach(function(current){
+    current.style.backgroundColor = 'dodgerblue';
+});
+
+//ES6
+const boxesArr6 = Array.from(boxes);
+boxesArr5.forEach(current => current.style.backgroundColor = 'red');
+
+
+//ES5
+for(var j = 0; j < boxesArr5.length; j++) {
+    if(boxesArr5[j].className === 'box blue'){
+        continue;
+    }
+
+    boxesArr5[j].textContent = 'I changed to blue!';
+}
+
+//ES6
+for (const i of boxesArr6) {
+    if(i.className.includes('blue')){
+        continue;
+    }
+    i.textContent = 'I changed to blueeeee!';
+}
+
+//ES5
+var agesChild = [12, 17, 8, 21, 14, 11];
+var full = agesChild.map(function(curr){
+    return curr >= 18;
+});
+console.log(full);
+console.log(full.indexOf(true));
+console.log(agesChild[full.indexOf(true)]);
+
+//ES6
+console.log(agesChild.findIndex(cur => cur >= 18));
+console.log(agesChild[agesChild.findIndex(cur => cur >= 18)]);
+console.log(agesChild.find(cur => cur >= 18));
