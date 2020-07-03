@@ -335,3 +335,146 @@ console.log(agesChild[full.indexOf(true)]);
 console.log(agesChild.findIndex(cur => cur >= 18));
 console.log(agesChild[agesChild.findIndex(cur => cur >= 18)]);
 console.log(agesChild.find(cur => cur >= 18));
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+// Lecture: Spread operator
+
+function addFourAges(a, b, c, d, e) {
+    return a + b + c + d + e;
+}
+
+var sum1 = addFourAges(18, 30, 12, 21, 25);
+console.log(sum1);
+
+//ES5
+var agesSpread = [18, 30, 12, 21, 20];
+
+var sum2 = addFourAges.apply(null, agesSpread);
+console.log(sum2);
+
+//ES6
+const sum3 = addFourAges(...agesSpread);
+console.log(sum3);
+
+const familySmith = ['john', 'jane', 'mark'];
+const familyMiller = ['mary', 'bob', 'ann'];
+const bigfamily = [...familySmith, 'text',  ...familyMiller];
+
+const h = document.querySelector('h1');
+const boxesSpread = document.querySelectorAll('.box');
+
+const all = [h, ...boxesSpread];
+
+Array.from(all).forEach(curr => curr.style.color = 'purple');
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+// Lecture: Rest parameters
+
+//ES5
+function isFullAgesResParametersEs5() {
+    console.log(arguments);
+    var args = Array.prototype.slice.call(arguments);
+    args.forEach(function(cur){
+        console.log((2016 - cur) >= 18);
+    });
+}
+
+isFullAgesResParametersEs5(1990,2020,1198);
+isFullAgesResParametersEs5(1990,2020,1198,2015);
+
+//ES//6
+function isFullAgesResParametersEs6(...args) {
+    args.forEach(cur => console.log((2016 - cur) >= 18));
+}
+
+isFullAgesResParametersEs6(1990,2020,1198);
+isFullAgesResParametersEs6(1990,2020,1198,2015);
+
+
+//ES5
+function isFullAgesResParametersEs51(limit) {
+    console.log(arguments);
+    var args = Array.prototype.slice.call(arguments, 1);
+    args.forEach(function(cur){
+        console.log((2016 - cur) >= limit);
+    });
+}
+
+isFullAgesResParametersEs51(18, 1990,2020,1198);
+isFullAgesResParametersEs51(18, 1990,2020,1198,2015);
+
+//ES//6
+function isFullAgesResParametersEs61(limit, ...args) {
+    args.forEach(cur => console.log((2016 - cur) >= limit));
+}
+
+isFullAgesResParametersEs61(18, 1990,2020,1198);
+isFullAgesResParametersEs61(18, 1990,2020,1198,2015);
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+// Lecture: default parameters
+
+//ES5
+function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
+
+    lastName === undefined ? lastName = 'Smith' : lastName = lastName;
+    nationality === undefined ? nationality = 'american' : nationality = nationality;
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.yearOfBirth = yearOfBirth;
+    this.nationality = nationality;
+}
+
+var johnDefaultParameters = new SmithPerson('john', 1990);
+
+
+//ES6
+function SmithPersonES6(firstName, yearOfBirth, 
+    lastName = 'Smith', nationality = 'American') {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.yearOfBirth = yearOfBirth;
+    this.nationality = nationality;
+}
+
+var johnDefaultParametersEs6 = new SmithPersonES6('john', 1990);
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+// Lecture: maps
+
+const question = new Map();
+question.set('question', 
+'What is the oficial name of the lateste major Javascript version ?');
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES15');
+question.set(4, 'ES7');
+question.set('answer', 3);
+question.set(true, 'Correct');
+question.set(false, 'Incorrect');
+
+console.log(question.get('question'));
+console.log(question.size);
+
+if(question.has(4)){
+    question.delete(4);
+    console.log("anwswer 4 is here");
+}
+
+//question.clear();
+question.forEach((value, key) => console.log(`${key} and ${value}`))
+
+for(let [key, value] of question.entries()) {
+
+    if(typeof(key) === 'number'){
+        console.log(`${key} and ${value}`)
+    }    
+}
+
+const ans = parseInt(prompt('Write the correct answer'));
+console.log(question.get(ans === question.get('answer')));
